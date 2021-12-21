@@ -2,7 +2,7 @@
 
 ### Danke an
 Vielen Dank an User headEx74, siehe https://github.com/headEx74/Flatex-Documents-Download-Helper,
-mein Skript bildet die Grundlage für dieses Repository.
+sein Skript bildet die Grundlage für dieses Repository.
 
 :bangbang: Mein Skript bietet folgende zusätzliche Features:
 - Automatischer Login
