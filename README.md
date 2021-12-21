@@ -1,46 +1,48 @@
 # Flatex-Documents-Download-Helper
 
-Das Skript erlaubt es mittels per Selenium gesteuerten Chrome-Browser PDF-Dokumente aus dem 
-Dokumentenarchiv  von Flatex herunterzuladen. 
+### Danke an
+Vielen Dank an User headEx74, siehe https://github.com/headEx74/Flatex-Documents-Download-Helper,
+mein Skript bildet die Grundlage für dieses Repository.
 
-### Entwicklungs- und Testumgebung
+:bangbang: Mein Skript bietet folgende zusätzliche Features:
+- Automatischer Login
+- Kontoauswahl bei mehreren Cashkonten
+- Automatische Zeitraumwahl, kein manuelles Einstellen mehr
+- Automatisches Downloaden der letzten X Monate im Skript direkt
+- Sammlung aller Downloads in eigenem Ordner
+- keine Vorkonfiguration vom Browser möglich
+- Browserunabhängig
+- Direktstart von Chrome, ohne Kommandozeile
 
-- Windows 10 (64 Bit) Version 20H2
-- Python 3.8.3
-- Chrome Browser Version 88.0.4324.104
 
-### Anleitung
+Das Skript erlaubt es mittels per Selenium gesteuerten Chrome-Browser PDF-Dokumente aus dem Dokumentenarchiv von Flatex herunterzuladen. 
+
+### Zugangsdaten speichern
+Um dem Skript den Login zu ermöglichen, muss in diesem Ordner (gleicher Ordner wie das `.py` Skript) Ordner eine Konfigurationsdatei `credentials.ini` erstellt werden, mit folgendem Inhalt (um persönliche Daten ergänzen):
+```
+[CONFIGURATION]
+kundennummer = 1111111
+passwort = meinPasswort
+kontonummer_letzte_drei_zeichen = 123
+```
+Siehe `beispiel-credentials.ini`, einfach die Informationen ändern und die Datei in `credentials.ini` umbenennen.
+
+### Anleitung Verwendung
+Skript starten mit 
+```python3 flatex_document_downloader.py <months>```
+Wobei der parameter `<months>` folgendermaßen eingestellt wird:
+Die Anzahl der herunterzuladenden letzten Monate, der aktuelle Monat inbegriffen. Um also nur diesen Monat herunterzuladen, diesen Parameter auf 1 setzen. Für diesen und den letzten Monat den Parameter auf 2 setzen, und so weiter.
+
+Beispiel (lädt den aktuellen Monat und den letzten herunter): 
+```python3 flatex_document_downloader.py 2```
+
+### Anleitung Installation
 
 1. Python herunterladen und installieren: https://www.python.org/downloads/
 2. Requirements installieren: `pip install -r requirements.txt`
 3. Chrome Browser herunterladen: https://www.google.com/chrome/
-4. Zur Browser Version passenden Chrome Driver herunterladen
+4. Für Google Chrome: Zur Browser Version passenden Chrome Driver herunterladen
     - Download: https://chromedriver.chromium.org/downloads
     - Den Chrome Driver (also der Ordner, in dem er sich befindet) in den PATH (in den Windows Umgebungsvariablen) 
      eintragen, damit er von Selenium gefunden wird
-5. Den Chrome Browser so konfigurieren, dass PDF-Dateien direkt heruntergeladen werden anstatt sie im Chrome zu öffnen
-    - entsprechendes Menü über folgende URL im Chrome-Browser öffnen: `chrome://settings/content/pdfDocuments`
-    - Menüpunkt aktivieren: *PDF-Dateien herunterladen, anstatt sie automatisch in Chrome zu öffnen*
-6. Chrome über die Kommandozeile starten
-    - Befehl: `chrome.exe -remote-debugging-port=9999`
-    - Der verwendete Port (hier bspw. `9999`) muss später auch als Parameter im Skript übergeben werden. 
-      Dies erlaubt es Selenium sich auf einen *bereits geöffneten* Chrome-Browser zu verbinden, anstatt einen neuen 
-      zu starten
-    - Das Browserfenster maximieren, um zu gewährleisten, dass alle HTML-Elemente angezeigt werden
-7. Vorbereitungen im Flatex Konto vornehmen
-    - Flatex (https://www.flatex.de) im eben geöffneten Chrome-Browser aufrufen
-    - manuell ins Flatex Konto einloggen 
-    - über das Menü "Post" ins "Dokumentenarchiv" navigieren
-8. Manuelle Filtereinstellungen im Dokumentenarchiv vornehmen
-    - Die Filter entsprechend anpassen, sodass die gewünschten Dokumente aufgelistet werden (das Programm kann nur die 
-      momentan sichtbaren Dokumente in der Liste herunterladen)
-    - Achtung: Flatex stellt maximal 100 Dokumente auf einmal dar (eine entsprechende Warnung wird über der Liste 
-      angezeigt)
-    - das bedeutet, man muss den Filter (gewünschtes Datum, gewünschte Dokumentenart, etc.) entsprechend anpassen, 
-      sodass maximal 100 Dokumente auf einmal angezeigt werden. Ebenfalls wichtig ist es, den Filter auf "Alle" und 
-      nicht nur auf "Gelesene" oder "Ungelesene" zu stellen, da sonst nicht alle Dokumente angezeigt werden.
-9. Sobald der Filter eingestellt ist und die gewünschten Dokumente in der Liste angezeit werden, kann das Skript über 
-   die Kommandozeile gestartet werden.
-    - Befehl: `python flatex.py 9999`
-    - Der übergebene Port (hier bspw. `9999`) muss dem Debugging-Port entsprechen, mit dem der Chrome-Browser gestartet wurde (siehe Punkt 6)
-    - Der Download lief bei mir schneller, wenn das Browserfenster währenddessen im Vordergrund lief
+    - MAC: `brew install chromedriver`
