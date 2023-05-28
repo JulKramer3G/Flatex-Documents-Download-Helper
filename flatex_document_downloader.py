@@ -70,11 +70,11 @@ class FlatexBrowser:
 
     def authenticate(self, id: str, password: str):
         self.driver.get('https://konto.flatex.de')
-        field_id = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.XPATH, '//*[@id="loginForm_userId"]')))
+        field_id = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.XPATH, '//*[@id="loginForm_txtUserId"]')))
         field_id.send_keys(id)
-        field_pass = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.XPATH, '//*[@id="loginForm_pin"]')))
+        field_pass = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.XPATH, '//*[@id="loginForm_txtPassword_txtPassword"]')))
         field_pass.send_keys(password)
-        btn_login =  WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.XPATH, '//*[@id="loginForm_loginButton"]')))
+        btn_login =  WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.XPATH, '//*[@id="loginForm_btnLogin"]')))
         ActionChains(self.driver).move_to_element(btn_login).perform()
         btn_login.click()
         wait_for_url_with(self.driver, 'banking-flatex', 5)
@@ -103,7 +103,7 @@ class FlatexBrowser:
         btn_timespan = wait_for_element(self.driver, '//*[@id="documentArchiveListForm_dateRangeComponent_retrievalPeriodSelection"]/div[1]/div[1]/div')
         ActionChains(self.driver).move_to_element(btn_timespan).perform()
         btn_timespan.click()
-        btn_timespan_today = wait_for_element(self.driver, '//*[@id="documentArchiveListForm_dateRangeComponent_retrievalPeriodSelection_item_0"]')
+        btn_timespan_today = wait_for_element(self.driver, '//*[@id="documentArchiveListForm_dateRangeComponent_retrievalPeriodSelection_item_6"]')
         ActionChains(self.driver).move_to_element(btn_timespan_today).perform()
         btn_timespan_today.click()
         time.sleep(3)
